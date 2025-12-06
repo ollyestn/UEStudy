@@ -1,0 +1,3 @@
+[submodule "TwinTest/Plugins/UnrealGenAISupport"]
+	path = TwinTest/Plugins/UnrealGenAISupport
+	url = https://github.com/ollyestn2/UnrealGenAISupport.git
