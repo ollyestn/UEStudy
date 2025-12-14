@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System.IO;
 using UnrealBuildTool;
 
 public class OfflineSpeechRecognition : ModuleRules
@@ -27,9 +28,12 @@ public class OfflineSpeechRecognition : ModuleRules
 			{
 				"Core",
 				"OfflineSpeechRecognitionLibrary",
-				"Projects"
+				"Projects",
 				// ... add other public dependencies that you statically link with here ...
-			}
+				"CoreUObject", 
+				"Engine", 
+				"InputCore",
+            }
 			);
 			
 		
@@ -47,5 +51,16 @@ public class OfflineSpeechRecognition : ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
 			);
-	}
+
+
+		// 添加Vosk路径（示例）
+        string VoskPath = Path.Combine(ModuleDirectory, "../ThirdParty", "Vosk");
+        PublicIncludePaths.Add(Path.Combine(VoskPath, "include"));
+        PublicAdditionalLibraries.Add(Path.Combine(VoskPath, "lib", "libvosk.lib"));
+        // 复制libvosk.dll到==> TwinTest\Plugins\OfflineSpeechRecognition\Binaries\Win64
+        // libgcc_s_seh-1.dll到==> TwinTest\Plugins\OfflineSpeechRecognition\Binaries\Win64
+        // libstdc++-6.dll到==> TwinTest\Plugins\OfflineSpeechRecognition\Binaries\Win64
+        // libwinpthread-1.dll到==> TwinTest\Plugins\OfflineSpeechRecognition\Binaries\Win64
+        //RuntimeDependencies.Add("$(PluginDir)/ThirdParty/Vosk/lib/libvosk.dll");
+    }
 }
